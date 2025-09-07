@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Image from 'next/image';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 import styles from './Contact.module.css';
 
 export default function Contact() {
@@ -28,8 +28,17 @@ export default function Contact() {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
+    console.log('=== EMAILJS DEBUG INFO ===');
+    console.log('Service ID:', 'service_o96urzt');
+    console.log('Template ID:', 'template_2qnktfp');
+    console.log('Public Key:', 'tXJRf0CcFKcZWYALC');
+    console.log('Sending email with params:', formData);
+
     try {
-      // EmailJS configuration
+      const serviceId = 'service_o96urzt';
+      const templateId = 'template_2qnktfp';
+      const publicKey = 'tXJRf0CcFKcZWYALC';
+
       const templateParams = {
         name: formData.name,
         email: formData.email,
@@ -37,37 +46,25 @@ export default function Contact() {
         message: formData.message
       };
 
-      console.log('=== EMAILJS DEBUG INFO ===');
-      console.log('Service ID:', 'service_o96urzt');
-      console.log('Template ID:', 'template_2qnktfp');
-      console.log('Public Key:', 'tXJRf0CcFKcZWYALC');
-      console.log('Template Params:', templateParams);
-      console.log('========================');
-
-      // Send email using EmailJS
-      const result = await emailjs.send(
-        'service_o96urzt', // Your EmailJS service ID
-        'template_2qnktfp', // Your Template ID
+      await emailjs.send(
+        serviceId,
+        templateId,
         templateParams,
-        'tXJRf0CcFKcZWYALC' // Your EmailJS public key
+        publicKey
       );
 
       console.log('=== EMAILJS SUCCESS ===');
-      console.log('Result:', result);
-      console.log('Status:', result.status);
-      console.log('Text:', result.text);
-      console.log('=======================');
-      
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
       console.error('=== EMAILJS ERROR ===');
-      console.error('Full error object:', error);
-      console.error('Error status:', error.status);
-      console.error('Error text:', error.text);
-      console.error('Error message:', error.message);
-      console.error('Error stack:', error.stack);
-      console.error('====================');
+      console.error('EmailJS error details:', error);
+      if (error.status) {
+        console.error('Error status:', error.status);
+      }
+      if (error.text) {
+        console.error('Error text:', error.text);
+      }
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -111,7 +108,7 @@ export default function Contact() {
             <h3 className={styles.mapTitle}>Proudly Serving Cape Cod</h3>
             <div className={styles.mapContainer}>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d392000.0!2d-70.8!3d41.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e4cb7211111111%3A0x89e4cb7211111111!2sCape%20Cod%2C%20MA!5e0!3m2!1sen!2sus!4v1678901234567!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d392000.0!2d-70.8!3d41.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f12.5!3m3!1m2!1s0x89e4cb7211111111%3A0x89e4cb7211111111!2sCape%20Cod%2C%20MA!5e0!3m2!1sen!2sus!4v1678901234567!5m2!1sen!2sus"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}
