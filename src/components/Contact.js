@@ -29,6 +29,18 @@ export default function Contact() {
     setSubmitStatus(null);
 
     try {
+      // Check if EmailJS is configured
+      const serviceId = 'YOUR_SERVICE_ID';
+      const publicKey = 'YOUR_PUBLIC_KEY';
+      
+      if (serviceId === 'YOUR_SERVICE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
+        // EmailJS not configured yet - simulate success
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        return;
+      }
+
       // EmailJS configuration
       const templateParams = {
         name: formData.name,
@@ -39,10 +51,10 @@ export default function Contact() {
 
       // Send email using EmailJS
       await emailjs.send(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        serviceId,
         'salt_air_contact_form', // Template ID
         templateParams,
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+        publicKey
       );
 
       setSubmitStatus('success');
