@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Image from 'next/image';
+import emailjs from '@emailjs/browser';
 import styles from './Contact.module.css';
 
 export default function Contact() {
@@ -28,12 +29,26 @@ export default function Contact() {
     setSubmitStatus(null);
 
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // EmailJS configuration
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message
+      };
+
+      // Send email using EmailJS
+      await emailjs.send(
+        'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+        'salt_air_contact_form', // Template ID
+        templateParams,
+        'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
+      );
+
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
+      console.error('EmailJS error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -50,7 +65,7 @@ export default function Contact() {
             Contact us today for a free consultation and let us show you why 
             reputation matters.
           </p>
-          
+
           <div className={styles.contactDetails}>
             <div className={styles.contactItem}>
               <div className={styles.icon}>
