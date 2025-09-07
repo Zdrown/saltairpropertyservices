@@ -11,8 +11,8 @@ export default function Header() {
       const header = document.querySelector('header');
       const headerHeight = header ? header.offsetHeight : 80;
       
-      // Add extra offset for services section to position above "Why Choose Us" title
-      const extraOffset = sectionId === 'services' ? 100 : 0;
+      // Add small offset for services section to position just above "Why Choose Us" title
+      const extraOffset = sectionId === 'services' ? 20 : 0;
       
       const elementPosition = element.offsetTop;
       const offsetPosition = elementPosition - headerHeight - extraOffset;
