@@ -7,7 +7,20 @@ export default function Header() {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Get header height for offset
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.offsetHeight : 80;
+      
+      // Add extra offset for services section to position above "Why Choose Us" title
+      const extraOffset = sectionId === 'services' ? 100 : 0;
+      
+      const elementPosition = element.offsetTop;
+      const offsetPosition = elementPosition - headerHeight - extraOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 

@@ -7,7 +7,20 @@ export default function Footer() {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Get header height for offset
+      const header = document.querySelector('header');
+      const headerHeight = header ? header.offsetHeight : 80;
+      
+      // Add extra offset for services section to position above "Why Choose Us" title
+      const extraOffset = sectionId === 'services' ? 100 : 0;
+      
+      const elementPosition = element.offsetTop;
+      const offsetPosition = elementPosition - headerHeight - extraOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -52,20 +65,29 @@ export default function Footer() {
 
         <div className={styles.footerSection}>
           <h3>Follow Us</h3>
-          <p>Stay updated with tips and Cape Cod home insights</p>
           <div className={styles.socialLinks}>
-            <a href="https://www.facebook.com/saltairpropertyservices" className={styles.socialLink} aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <a 
+              href="https://www.facebook.com/saltairpropertyservices" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.socialLink}
+            >
               <FaFacebook />
             </a>
-            <a href="https://www.instagram.com/saltairpropertyservices" className={styles.socialLink} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <a 
+              href="https://www.instagram.com/saltairpropertyservices" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className={styles.socialLink}
+            >
               <FaInstagram />
             </a>
           </div>
         </div>
-
-        <div className={styles.copyright}>
-          <p>&copy; 2025 Salt Air Property Services. All rights reserved.</p>
-        </div>
+      </div>
+      
+      <div className={styles.footerBottom}>
+        <p>&copy; 2025 Salt Air Property Services. All rights reserved.</p>
       </div>
     </footer>
   );
