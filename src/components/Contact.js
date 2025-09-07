@@ -29,18 +29,6 @@ export default function Contact() {
     setSubmitStatus(null);
 
     try {
-      // Check if EmailJS is configured
-      const serviceId = 'YOUR_SERVICE_ID';
-      const publicKey = 'YOUR_PUBLIC_KEY';
-      
-      if (serviceId === 'YOUR_SERVICE_ID' || publicKey === 'YOUR_PUBLIC_KEY') {
-        // EmailJS not configured yet - simulate success
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', phone: '', message: '' });
-        return;
-      }
-
       // EmailJS configuration
       const templateParams = {
         name: formData.name,
@@ -49,18 +37,23 @@ export default function Contact() {
         message: formData.message
       };
 
+      console.log('Sending email with params:', templateParams);
+
       // Send email using EmailJS
-      await emailjs.send(
-        serviceId,
-        'salt_air_contact_form', // Template ID
+      const result = await emailjs.send(
+        'service_o96urzt', // Your EmailJS service ID
+        'template_2qnktfp', // Your Template ID
         templateParams,
-        publicKey
+        'tXJRf0CcFKcZWYALC' // Your EmailJS public key
       );
 
+      console.log('EmailJS success:', result);
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
-      console.error('EmailJS error:', error);
+      console.error('EmailJS error details:', error);
+      console.error('Error status:', error.status);
+      console.error('Error text:', error.text);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
