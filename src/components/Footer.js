@@ -86,7 +86,7 @@ export default function Footer() {
         </div>
       </div>
       
-      <div className={styles.footerBottom}>
+      <div className={styles.copyright}>
         <p>&copy; 2025 Salt Air Property Services. All rights reserved.</p>
       </div>
     </footer>
