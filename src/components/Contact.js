@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Image from 'next/image';
-import emailjs from '@emailjs/browser';
+import emailjs from 'emailjs-com';
 import styles from './Contact.module.css';
 
 export default function Contact() {
@@ -37,7 +37,12 @@ export default function Contact() {
         message: formData.message
       };
 
-      console.log('Sending email with params:', templateParams);
+      console.log('=== EMAILJS DEBUG INFO ===');
+      console.log('Service ID:', 'service_o96urzt');
+      console.log('Template ID:', 'template_2qnktfp');
+      console.log('Public Key:', 'tXJRf0CcFKcZWYALC');
+      console.log('Template Params:', templateParams);
+      console.log('========================');
 
       // Send email using EmailJS
       const result = await emailjs.send(
@@ -47,13 +52,22 @@ export default function Contact() {
         'tXJRf0CcFKcZWYALC' // Your EmailJS public key
       );
 
-      console.log('EmailJS success:', result);
+      console.log('=== EMAILJS SUCCESS ===');
+      console.log('Result:', result);
+      console.log('Status:', result.status);
+      console.log('Text:', result.text);
+      console.log('=======================');
+      
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
-      console.error('EmailJS error details:', error);
+      console.error('=== EMAILJS ERROR ===');
+      console.error('Full error object:', error);
       console.error('Error status:', error.status);
       console.error('Error text:', error.text);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+      console.error('====================');
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
