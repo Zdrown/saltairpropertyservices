@@ -6,7 +6,7 @@ import styles from './Hero.module.css';
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const images = [
     {
       src: '/heroimage1.jpg',
@@ -30,9 +30,8 @@ export default function Hero() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % images.length);
-    }, 5000);
-
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % images.length);
+    }, 5000); // Change slide every 5 seconds
     return () => clearInterval(timer);
   }, [images.length]);
 
@@ -42,50 +41,40 @@ export default function Hero() {
 
   return (
     <section className={styles.hero}>
-      <div className={styles.heroContainer}>
-        <div className={styles.carousel}>
-          <div className={styles.slideContainer}>
-            {images.map((image, index) => (
-              <div
-                key={index}
-                className={`${styles.slide} ${index === currentSlide ? styles.active : ''}`}
-              >
-                <div className={styles.imageContainer}>
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    width={1200}
-                    height={400}
-                    className={styles.heroImage}
-                    priority={index === 0}
-                  />
-                </div>
+      <div className={styles.carousel}>
+        <div className={styles.slideContainer}>
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className={`${styles.slide} ${index === currentSlide ? styles.active : ''}`}
+            >
+              <div className={styles.imageContainer}>
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  priority={index === 0}
+                  className={styles.heroImage}
+                />
               </div>
-            ))}
-          </div>
-          
-          <div className={styles.dots}>
-            {images.map((_, index) => (
-              <button
-                key={index}
-                className={`${styles.dot} ${index === currentSlide ? styles.active : ''}`}
-                onClick={() => goToSlide(index)}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-        
-        <div className={styles.content}>
-          <h1 className={styles.title}>Professional Property Services</h1>
-          <p className={styles.description}>
-            Trusted Cape Cod expertise for all your property management needs. 
-            From maintenance to tenant relations, we provide comprehensive solutions.
-          </p>
-          <a href="#contact" className={styles.ctaButton}>
-            Get In Touch
-          </a>
+        <div className={styles.navigationDots}>
+          {images.map((_, index) => (
+            <span
+              key={index}
+              className={`${styles.dot} ${index === currentSlide ? styles.active : ''}`}
+              onClick={() => goToSlide(index)}
+            ></span>
+          ))}
         </div>
+      </div>
+      {/* Content section below the carousel */}
+      <div className={styles.content}>
+        <h1 className={styles.title}>{images[currentSlide].title}</h1>
+        <p className={styles.description}>{images[currentSlide].description}</p>
+        <a href="#contact" className={styles.ctaButton}>Get in Touch</a>
       </div>
     </section>
   );
