@@ -64,7 +64,7 @@ export default function Contact() {
         <div className={styles.contactInfo}>
           <h2 id="contact-heading">Get in Touch</h2>
           <p>
-            <strong>Proudly serving Cape Cod — Eastham, Wellfleet, Truro, and Provincetown.</strong><br />
+            <strong>Proudly serving Outer Cape Cod.</strong><br />
             We serve all of Cape Cod to deliver fast, reliable, high-quality service.
           </p>
 
