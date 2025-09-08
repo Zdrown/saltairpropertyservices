@@ -1,6 +1,7 @@
 'use client';
 
-// Contact form component with EmailJS integration and Outer Cape service area focusimport { useState } from 'react';
+// Contact form component with EmailJS integration and Outer Cape service area focus
+import { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import emailjs from '@emailjs/browser';
@@ -11,60 +12,45 @@ export default function Contact() {
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
+    website: '' // honeypot (leave empty)
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Basic bot trap
+    if (formData.website) return;
+
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    console.log('=== EMAILJS DEBUG INFO ===');
-    console.log('Service ID:', 'service_o96urzt');
-    console.log('Template ID:', 'template_2qnktfp');
-    console.log('Public Key:', 'tXJRf0CcFKcZWYALC');
-    console.log('Sending email with params:', formData);
-
     try {
-      const serviceId = 'service_o96urzt';
-      const templateId = 'template_2qnktfp';
-      const publicKey = 'tXJRf0CcFKcZWYALC';
-
       const templateParams = {
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        message: formData.message
+        message: formData.message,
       };
 
       await emailjs.send(
-        serviceId,
-        templateId,
+        'service_o96urzt',   // EmailJS service ID
+        'template_2qnktfp',  // EmailJS template ID
         templateParams,
-        publicKey
+        'tXJRf0CcFKcZWYALC'  // EmailJS public key
       );
 
-      console.log('=== EMAILJS SUCCESS ===');
       setSubmitStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
-    } catch (error) {
-      console.error('=== EMAILJS ERROR ===');
-      console.error('EmailJS error details:', error);
-      if (error.status) {
-        console.error('Error status:', error.status);
-      }
-      if (error.text) {
-        console.error('Error text:', error.text);
-      }
+      setFormData({ name: '', email: '', phone: '', message: '', website: '' });
+    } catch (err) {
+      console.error('EmailJS error:', err);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -72,68 +58,78 @@ export default function Contact() {
   };
 
   return (
-    <section className={styles.sectionContainer} id="contact">
+    <section className={styles.sectionContainer} id="contact" aria-labelledby="contact-heading">
       <div className={styles.container}>
+        {/* Left: Info & Service Area */}
         <div className={styles.contactInfo}>
-          <h2>Get In Touch</h2>
+          <h2 id="contact-heading">Get in Touch</h2>
           <p>
-            Ready to protect your Cape Cod property with federal-level expertise? 
-            Contact us today for a free consultation and let us show you why 
-            reputation matters.
+            <strong>Proudly serving Outer Cape Cod — Eastham, Wellfleet, Truro, and Provincetown.</strong><br />
+            We focus exclusively on the Outer Cape to deliver fast, reliable, high-quality service.
           </p>
 
-          <div className={styles.contactDetails}>
+          <div className={styles.contactDetails} aria-label="Contact details">
             <div className={styles.contactItem}>
-              <div className={styles.icon}>
-                <FaPhone />
-              </div>
-              <a href="tel:508-240-1708">508-240-1708</a>
+              <div className={styles.icon}><FaPhone aria-hidden="true" /></div>
+              <a href="tel:508-240-1708" aria-label="Call us at 508-240-1708">508-240-1708</a>
             </div>
             <div className={styles.contactItem}>
-              <div className={styles.icon}>
-                <FaEnvelope />
-              </div>
+              <div className={styles.icon}><FaEnvelope aria-hidden="true" /></div>
               <a href="mailto:saltairpropertyservices@gmail.com">saltairpropertyservices@gmail.com</a>
             </div>
             <div className={styles.contactItem}>
-              <div className={styles.icon}>
-                <FaMapMarkerAlt />
-              </div>
-              <span>Cape Cod, Massachusetts</span>
+              <div className={styles.icon}><FaMapMarkerAlt aria-hidden="true" /></div>
+              <span>Outer Cape Cod, Massachusetts</span>
             </div>
           </div>
 
-          {/* Google Maps Section */}
+          {/* Service Area Map — zoomed to the Outer Cape */}
           <div className={styles.mapSection}>
-            <h3 className={styles.mapTitle}>Proudly Serving Cape Cod</h3>
+            <h3 className={styles.mapTitle}>Service Area: Outer Cape Only</h3>
             <div className={styles.mapContainer}>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d392000.0!2d-70.8!3d41.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f12.5!3m3!1m2!1s0x89e4cb7211111111%3A0x89e4cb7211111111!2sCape%20Cod%2C%20MA!5e0!3m2!1sen!2sus!4v1678901234567!5m2!1sen!2sus"
+                title="Outer Cape Cod Service Area"
+                src="https://www.google.com/maps?hl=en&q=Outer%20Cape%20Cod&ll=41.90,-70.05&z=10&output=embed"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}
-                allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Cape Cod Location Map"
-              ></iframe>
+              />
             </div>
+            <p style={{ marginTop: '0.5rem' }}>
+              Towns served: <strong>Eastham (02642), Wellfleet (02667), Truro (02652), Provincetown (02657)</strong>.
+            </p>
           </div>
         </div>
 
+        {/* Right: Image & Form */}
         <div>
           <div className={styles.imageContainer}>
-            <Image 
-              src="/lighthouse.jpg" 
-              alt="Cape Cod Lighthouse - Contact Salt Air Property Services" 
-              fill 
+            <Image
+              src="/lighthouse.jpg"
+              alt="Outer Cape coastline and lighthouse"
+              fill
               className={styles.contactImage}
               priority
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
-          
+
           <div className={styles.formContainer}>
-            <form className={styles.form} onSubmit={handleSubmit}>
+            <form className={styles.form} onSubmit={handleSubmit} noValidate>
+              {/* Honeypot (hidden) */}
+              <input
+                type="text"
+                name="website"
+                value={formData.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+                style={{ display: 'none' }}
+                aria-hidden="true"
+              />
+
               <div className={styles.formGroup}>
                 <label htmlFor="name" className={styles.label}>Full Name</label>
                 <input
@@ -172,6 +168,7 @@ export default function Contact() {
                   onChange={handleChange}
                   placeholder="(508) 123-4567"
                   className={styles.input}
+                  inputMode="tel"
                 />
               </div>
 
@@ -182,28 +179,39 @@ export default function Contact() {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell us about your property and how we can help..."
+                  placeholder="Tell us about your Outer Cape property and how we can help..."
                   className={styles.textarea}
                   required
+                  rows={5}
                 />
               </div>
 
-              <button type="submit" className={styles.submitButton} disabled={isSubmitting}>
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={isSubmitting}
+                aria-busy={isSubmitting}
+              >
+                {isSubmitting ? 'Sending…' : 'Send Message'}
               </button>
 
-              {submitStatus === 'success' && (
-                <div className={styles.successMessage}>
-                  Thank you! Your message has been sent successfully. We'll get back to you soon.
-                </div>
-              )}
-
-              {submitStatus === 'error' && (
-                <div className={styles.errorMessage}>
-                  Sorry, there was an error sending your message. Please try again or call us directly.
-                </div>
-              )}
+              <div aria-live="polite" aria-atomic="true">
+                {submitStatus === 'success' && (
+                  <div className={styles.successMessage}>
+                    Thanks! Your message is in. We'll reply shortly (Outer Cape jobs only).
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className={styles.errorMessage}>
+                    Sorry—something went wrong. Please try again or call us at 508-240-1708.
+                  </div>
+                )}
+              </div>
             </form>
+
+            <p style={{ fontSize: '0.9rem', marginTop: '0.75rem', opacity: 0.8 }}>
+              Need help outside the Outer Cape? Contact us—we can recommend trusted partners.
+            </p>
           </div>
         </div>
       </div>
