@@ -64,8 +64,8 @@ export default function Contact() {
         <div className={styles.contactInfo}>
           <h2 id="contact-heading">Get in Touch</h2>
           <p>
-            <strong>Proudly serving Outer Cape Cod — Eastham, Wellfleet, Truro, and Provincetown.</strong><br />
-            We focus exclusively on the Outer Cape to deliver fast, reliable, high-quality service.
+            <strong>Proudly serving Cape Cod — Eastham, Wellfleet, Truro, and Provincetown.</strong><br />
+            We serve all of Cape Cod to deliver fast, reliable, high-quality service.
           </p>
 
           <div className={styles.contactDetails} aria-label="Contact details">
@@ -79,16 +79,16 @@ export default function Contact() {
             </div>
             <div className={styles.contactItem}>
               <div className={styles.icon}><FaMapMarkerAlt aria-hidden="true" /></div>
-              <span>Outer Cape Cod, Massachusetts</span>
+              <span>Cape Cod, Massachusetts</span>
             </div>
           </div>
 
           {/* Service Area Map — zoomed to the Outer Cape */}
           <div className={styles.mapSection}>
-            <h3 className={styles.mapTitle}>Service Area: Outer Cape Only</h3>
+            <h3 className={styles.mapTitle}>Service Area: Cape Cod</h3>
             <div className={styles.mapContainer}>
               <iframe
-                title="Outer Cape Cod Service Area"
+                title="Cape Cod Service Area"
                 src="https://www.google.com/maps?hl=en&q=Outer%20Cape%20Cod&ll=41.90,-70.05&z=10&output=embed"
                 width="100%"
                 height="300"
@@ -98,7 +98,7 @@ export default function Contact() {
               />
             </div>
             <p style={{ marginTop: '0.5rem' }}>
-              Towns served: <strong>Eastham (02642), Wellfleet (02667), Truro (02652), Provincetown (02657)</strong>.
+              Towns served: <strong>All Cape Cod towns and communities</strong>.
             </p>
           </div>
         </div>
@@ -198,7 +198,7 @@ export default function Contact() {
               <div aria-live="polite" aria-atomic="true">
                 {submitStatus === 'success' && (
                   <div className={styles.successMessage}>
-                    Thanks! Your message is in. We'll reply shortly (Outer Cape jobs only).
+                    Thanks! Your message is in. We'll reply shortly (Cape Cod jobs).
                   </div>
                 )}
                 {submitStatus === 'error' && (
@@ -210,7 +210,7 @@ export default function Contact() {
             </form>
 
             <p style={{ fontSize: '0.9rem', marginTop: '0.75rem', opacity: 0.8 }}>
-              Need help outside the Outer Cape? Contact us—we can recommend trusted partners.
+              Need help outside Cape Cod? Contact us—we can recommend trusted partners.
             </p>
           </div>
         </div>
