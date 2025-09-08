@@ -1,9 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import styles from './Header.module.css';
 import Logo from './Logo';
 
 export default function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -21,7 +24,14 @@ export default function Header() {
         top: offsetPosition,
         behavior: 'smooth'
       });
+
+      // Close mobile menu after navigation
+      setIsMobileMenuOpen(false);
     }
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
@@ -29,7 +39,7 @@ export default function Header() {
       <div className={styles.headerContent}>
         <Logo />
         
-        <nav className={styles.navigation}>
+        <nav className={`${styles.navigation} ${isMobileMenuOpen ? styles.open : ''}`}>
           <a 
             className={styles.navLink}
             onClick={() => scrollToSection('why-us')}
@@ -53,8 +63,14 @@ export default function Header() {
           </a>
         </nav>
 
-        <button className={styles.mobileMenuButton}>
-          ☰
+        <button 
+          className={styles.mobileMenuButton}
+          onClick={toggleMobileMenu}
+          aria-label="Toggle mobile menu"
+        >
+          <span className={`${styles.hamburgerLine} ${isMobileMenuOpen ? styles.line1 : ''}`}></span>
+          <span className={`${styles.hamburgerLine} ${isMobileMenuOpen ? styles.line2 : ''}`}></span>
+          <span className={`${styles.hamburgerLine} ${isMobileMenuOpen ? styles.line3 : ''}`}></span>
         </button>
       </div>
     </header>

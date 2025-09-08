@@ -273,3 +273,83 @@
     font-size: var(--font-lg);
   }
 }
+
+@media (max-width: 480px) {
+  .sectionContainer {
+    padding: var(--spacing-2xl) 0;
+  }
+  
+  .container {
+    padding: 0 var(--spacing-xs);
+    gap: var(--spacing-xl);
+  }
+  
+  .contactInfo h2 {
+    font-size: var(--font-3xl);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .contactInfo p {
+    font-size: var(--font-md);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .contactItem {
+    font-size: var(--font-md);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .icon {
+    width: 40px;
+    height: 40px;
+    margin-right: var(--spacing-sm);
+  }
+  
+  .icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .imageContainer {
+    height: 200px;
+  }
+  
+  .mapTitle {
+    font-size: var(--font-lg);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .mapContainer iframe {
+    height: 200px;
+  }
+  
+  .form {
+    padding: var(--spacing-lg);
+  }
+  
+  .formGroup {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .label {
+    font-size: var(--font-sm);
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .input,
+  .textarea {
+    padding: var(--spacing-sm);
+    font-size: var(--font-sm);
+  }
+  
+  .submitButton {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-md);
+  }
+  
+  .successMessage,
+  .errorMessage {
+    padding: var(--spacing-md);
+    font-size: var(--font-md);
+  }
+}
