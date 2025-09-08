@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+// Contact form component with EmailJS integration and Outer Cape service area focusimport { useState } from 'react';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import emailjs from '@emailjs/browser';
