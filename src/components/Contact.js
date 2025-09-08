@@ -85,7 +85,7 @@ export default function Contact() {
 
           {/* Service Area Map — zoomed to the Outer Cape */}
           <div className={styles.mapSection}>
-            <h3 className={styles.mapTitle}>Service Area: Cape Cod</h3>
+            <h3 className={styles.mapTitle}>Service Area: Outer Cape Cod</h3>
             <div className={styles.mapContainer}>
               <iframe
                 title="Cape Cod Service Area"
@@ -98,7 +98,7 @@ export default function Contact() {
               />
             </div>
             <p style={{ marginTop: '0.5rem' }}>
-              Towns served: <strong>All Cape Cod towns and communities</strong>.
+              Towns served: <strong>Eastham, Wellfleet, Truro, and Provincetown</strong>.
             </p>
           </div>
         </div>
