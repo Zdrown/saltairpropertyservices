@@ -65,7 +65,7 @@ export default function Contact() {
           <h2 id="contact-heading">Get in Touch</h2>
           <p>
             <strong>Proudly serving Outer Cape Cod.</strong><br />
-            We serve all of Cape Cod to deliver fast, reliable, high-quality service.
+            We serve all of Outer Cape Cod to deliver fast, reliable, high-quality service.
           </p>
 
           <div className={styles.contactDetails} aria-label="Contact details">
