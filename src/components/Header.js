@@ -56,6 +56,13 @@ export default function Header() {
           </a>
           <a 
             className={styles.navLink}
+            onClick={() => scrollToSection('reviews')}
+            style={{ cursor: 'pointer' }}
+          >
+            Reviews
+          </a>
+          <a 
+            className={styles.navLink}
             onClick={() => scrollToSection('contact')}
             style={{ cursor: 'pointer' }}
           >
