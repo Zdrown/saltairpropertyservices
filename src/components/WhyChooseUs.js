@@ -43,7 +43,7 @@ export default function WhyChooseUs() {
             <div className={styles.label}>Reliability</div>
           </div>
           <div className={styles.statItem}>
-            <div className={styles.number}>24/7</div>
+            <div className={styles.number}>Rapid</div>
             <div className={styles.label}>Emergency Response</div>
           </div>
         </div>

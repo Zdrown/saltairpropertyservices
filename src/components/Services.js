@@ -33,7 +33,7 @@ export default function Services() {
     {
       id: 4,
       title: "Home Opening and Closing",
-      description: "Professional seasonal transitions with detailed checklists and comprehensive property assessments.",
+      description: "Professional seasonal transitions with comprehensive property assessments.",
       icon: FaKey
     },
     {
