@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaStar, FaQuoteLeft, FaUser, FaCalendarAlt, FaThumbsUp } from 'react-icons/fa';
 import styles from './Reviews.module.css';
 
@@ -13,8 +13,8 @@ export default function Reviews() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  // Sample reviews data - in a real app, this would come from an API
-  const [reviews, setReviews] = useState([
+  // Default sample reviews
+  const defaultReviews = [
     {
       id: 1,
       name: 'Sarah Mitchell',
@@ -47,24 +47,44 @@ export default function Reviews() {
       date: '2023-12-10',
       verified: true
     }
-  ]);
+  ];
+
+  // Load reviews from localStorage on component mount
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const savedReviews = localStorage.getItem('saltAirReviews');
+    if (savedReviews) {
+      setReviews(JSON.parse(savedReviews));
+    } else {
+      setReviews(defaultReviews);
+    }
+  }, []);
+
+  // Save reviews to localStorage whenever reviews change
+  useEffect(() => {
+    if (reviews.length > 0) {
+      localStorage.setItem('saltAirReviews', JSON.stringify(reviews));
+    }
+  }, [reviews]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Simulate API call
+    // Simulate API call delay
     setTimeout(() => {
       const review = {
         id: Date.now(),
         name: newReview.name,
-        rating: newReview.rating,
+        rating: parseInt(newReview.rating),
         comment: newReview.comment,
         date: new Date().toISOString().split('T')[0],
         verified: false
       };
       
+      // Add new review to the beginning of the array
       setReviews(prev => [review, ...prev]);
       setNewReview({ name: '', rating: 5, comment: '' });
       setSubmitStatus('success');
@@ -126,6 +146,11 @@ export default function Reviews() {
                   <div className={styles.verifiedBadge}>
                     <FaThumbsUp />
                     Verified
+                  </div>
+                )}
+                {!review.verified && (
+                  <div className={styles.pendingBadge}>
+                    Pending
                   </div>
                 )}
               </div>
@@ -201,7 +226,7 @@ export default function Reviews() {
 
             {submitStatus === 'success' && (
               <div className={styles.successMessage}>
-                Thank you for your review! It will be published after moderation.
+                Thank you for your review! It has been added and will be visible immediately.
               </div>
             )}
           </form>
