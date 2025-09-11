@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Sarah Mitchell",
+    "rating": 5,
+    "comment": "Salt Air Property Services exceeded our expectations! Their attention to detail and professionalism during our home opening was outstanding. Highly recommend for Outer Cape property owners.",
+    "date": "2024-11-15",
+    "verified": true
+  },
+  {
+    "id": 2,
+    "name": "Michael Chen",
+    "rating": 5,
+    "comment": "Rapid emergency response when we had storm damage. They were on-site within hours and handled everything professionally. True Outer Cape specialists.",
+    "date": "2024-10-08",
+    "verified": true
+  },
+  {
+    "id": 3,
+    "name": "Emily Rodriguez",
+    "rating": 5,
+    "comment": "From seasonal transitions to regular maintenance, Salt Air has been our trusted partner for years. Their knowledge of Outer Cape properties is unmatched.",
+    "date": "2024-09-22",
+    "verified": true
+  },
+  {
+    "id": 4,
+    "name": "David Thompson",
+    "rating": 5,
+    "comment": "Professional, reliable, and thorough. They understand the unique challenges of Outer Cape properties and deliver exceptional service every time.",
+    "date": "2024-08-10",
+    "verified": true
+  }
+]

@@ -13,61 +13,29 @@ export default function Reviews() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-
-  // Default sample reviews with 2024-2025 dates
-  const defaultReviews = [
-    {
-      id: 1,
-      name: 'Sarah Mitchell',
-      rating: 5,
-      comment: 'Salt Air Property Services exceeded our expectations! Their attention to detail and professionalism during our home opening was outstanding. Highly recommend for Outer Cape property owners.',
-      date: '2024-11-15',
-      verified: true
-    },
-    {
-      id: 2,
-      name: 'Michael Chen',
-      rating: 5,
-      comment: 'Rapid emergency response when we had storm damage. They were on-site within hours and handled everything professionally. True Outer Cape specialists.',
-      date: '2024-10-08',
-      verified: true
-    },
-    {
-      id: 3,
-      name: 'Emily Rodriguez',
-      rating: 5,
-      comment: 'From seasonal transitions to regular maintenance, Salt Air has been our trusted partner for years. Their knowledge of Outer Cape properties is unmatched.',
-      date: '2024-09-22',
-      verified: true
-    },
-    {
-      id: 4,
-      name: 'David Thompson',
-      rating: 5,
-      comment: 'Professional, reliable, and thorough. They understand the unique challenges of Outer Cape properties and deliver exceptional service every time.',
-      date: '2024-08-10',
-      verified: true
-    }
-  ];
-
-  // Load reviews from localStorage on component mount
   const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Load reviews from API on component mount
   useEffect(() => {
-    const savedReviews = localStorage.getItem('saltAirReviews');
-    if (savedReviews) {
-      setReviews(JSON.parse(savedReviews));
-    } else {
-      setReviews(defaultReviews);
-    }
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch('/api/reviews');
+        if (response.ok) {
+          const data = await response.json();
+          setReviews(data);
+        } else {
+          console.error('Failed to fetch reviews');
+        }
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchReviews();
   }, []);
-
-  // Save reviews to localStorage whenever reviews change
-  useEffect(() => {
-    if (reviews.length > 0) {
-      localStorage.setItem('saltAirReviews', JSON.stringify(reviews));
-    }
-  }, [reviews]);
 
   const sendReviewNotification = async (reviewData) => {
     try {
@@ -83,7 +51,7 @@ export default function Reviews() {
 
       await emailjs.send(
         'service_o96urzt',   // EmailJS service ID
-        'template_5pjhj6j',  // New template for review notifications
+        'template_5pjhj6j',  // EmailJS template ID
         templateParams,
         'tXJRf0CcFKcZWYALC'  // EmailJS public key
       );
@@ -99,25 +67,35 @@ export default function Reviews() {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Create review object
-    const review = {
-      id: Date.now(),
-      name: newReview.name,
-      rating: parseInt(newReview.rating),
-      comment: newReview.comment,
-      date: new Date().toISOString().split('T')[0],
-      verified: false,
-      pending: true
-    };
-
     try {
-      // Send email notification
-      await sendReviewNotification(review);
-      
-      // Add review to pending state (not visible on website yet)
-      setReviews(prev => [review, ...prev]);
-      setNewReview({ name: '', rating: 5, comment: '' });
-      setSubmitStatus('success');
+      // Submit review to API
+      const response = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newReview),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        
+        // Send email notification
+        const reviewData = {
+          id: result.reviewId,
+          name: newReview.name,
+          rating: parseInt(newReview.rating),
+          comment: newReview.comment,
+          date: new Date().toISOString().split('T')[0]
+        };
+        
+        await sendReviewNotification(reviewData);
+        
+        setNewReview({ name: '', rating: 5, comment: '' });
+        setSubmitStatus('success');
+      } else {
+        setSubmitStatus('error');
+      }
     } catch (error) {
       console.error('Error submitting review:', error);
       setSubmitStatus('error');
@@ -140,8 +118,20 @@ export default function Reviews() {
     ));
   };
 
-  // Filter out pending reviews from display (only show verified ones)
-  const displayReviews = reviews.filter(review => review.verified !== false || review.pending !== true);
+  if (isLoading) {
+    return (
+      <section className={styles.sectionContainer} id="reviews" aria-labelledby="reviews-heading">
+        <div className={styles.container}>
+          <h2 id="reviews-heading" className={styles.sectionTitle}>
+            What Our Clients Say
+          </h2>
+          <p className={styles.sectionSubtitle}>
+            Loading reviews...
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.sectionContainer} id="reviews" aria-labelledby="reviews-heading">
@@ -155,7 +145,7 @@ export default function Reviews() {
 
         {/* Reviews Grid */}
         <div className={styles.reviewsGrid}>
-          {displayReviews.map((review) => (
+          {reviews.map((review) => (
             <div key={review.id} className={styles.reviewCard}>
               <div className={styles.reviewHeader}>
                 <div className={styles.reviewerInfo}>
