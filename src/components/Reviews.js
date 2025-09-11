@@ -83,7 +83,7 @@ export default function Reviews() {
 
       await emailjs.send(
         'service_o96urzt',   // EmailJS service ID
-        'template_review_notification',  // New template for review notifications
+        'template_review',  // New template for review notifications
         templateParams,
         'tXJRf0CcFKcZWYALC'  // EmailJS public key
       );
