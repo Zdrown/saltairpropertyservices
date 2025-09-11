@@ -181,6 +181,9 @@
 
 /* Add Review Section */
 .addReviewSection {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
   background: var(--white);
   border-radius: 20px;
   padding: var(--spacing-4xl);
@@ -212,12 +215,14 @@
 }
 
 .reviewForm {
+  gap: var(--spacing-md);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);
 }
 
 .formRow {
+  gap: var(--spacing-md);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--spacing-lg);
@@ -237,6 +242,8 @@
 
 .input,
 .textarea {
+  min-height: 80px;
+  resize: vertical;
   padding: var(--spacing-md);
   border: 2px solid #e5e7eb;
   border-radius: 12px;
@@ -253,6 +260,8 @@
 }
 
 .textarea {
+  min-height: 80px;
+  resize: vertical;
   resize: vertical;
   min-height: 120px;
 }
@@ -337,10 +346,14 @@
   }
   
   .formRow {
+  gap: var(--spacing-md);
     grid-template-columns: 1fr;
   }
   
   .addReviewSection {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
     padding: var(--spacing-2xl);
   }
   
@@ -368,6 +381,9 @@
   }
   
   .addReviewSection {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
     padding: var(--spacing-xl);
   }
 }
