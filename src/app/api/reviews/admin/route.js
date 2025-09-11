@@ -62,7 +62,7 @@ export async function GET(request) {
           </div>
           <h1>Review ${action === 'approve' ? 'Approved' : 'Rejected'}</h1>
           <p>The review has been ${action === 'approve' ? 'approved and is now visible on your website' : 'rejected and removed from the system'}.</p>
-          <a href="https://your-website-url.com" class="btn">View Website</a>
+          <a href="https://saltairpropertyservices.com" class="btn">View Website</a>
         </div>
       </body>
       </html>
