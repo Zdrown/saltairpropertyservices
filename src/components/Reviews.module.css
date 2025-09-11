@@ -51,7 +51,7 @@
 .reviewCard {
   background: var(--white);
   border-radius: 16px;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-sm);
   box-shadow: var(--shadow-lg);
   border: 1px solid rgba(110, 168, 176, 0.1);
   transition: all 0.3s ease;
@@ -84,7 +84,7 @@
 .reviewerInfo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
 }
 
 .avatar {
@@ -181,9 +181,9 @@
 
 /* Add Review Section */
 .addReviewSection {
-  max-width: 400px;
+  max-width: 300px;
   margin: 0 auto;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-sm);
   background: var(--white);
   border-radius: 20px;
   padding: var(--spacing-4xl);
@@ -215,14 +215,14 @@
 }
 
 .reviewForm {
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);
 }
 
 .formRow {
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--spacing-lg);
@@ -231,7 +231,7 @@
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
 }
 
 .label {
@@ -242,9 +242,9 @@
 
 .input,
 .textarea {
-  min-height: 60px;
+  min-height: 50px;
   resize: vertical;
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   border: 2px solid #e5e7eb;
   border-radius: 12px;
   font-size: var(--font-base);
@@ -260,7 +260,7 @@
 }
 
 .textarea {
-  min-height: 60px;
+  min-height: 50px;
   resize: vertical;
   resize: vertical;
   min-height: 120px;
@@ -269,7 +269,7 @@
 .ratingInput {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
 }
 
 .ratingStar {
@@ -327,7 +327,7 @@
 .successMessage {
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: var(--white);
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   border-radius: 12px;
   text-align: center;
   font-weight: 500;
@@ -346,24 +346,24 @@
   }
   
   .formRow {
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
     grid-template-columns: 1fr;
   }
   
   .addReviewSection {
-  max-width: 400px;
+  max-width: 300px;
   margin: 0 auto;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-sm);
     padding: var(--spacing-2xl);
   }
   
   .reviewCard {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-sm);
   }
   
   .reviewHeader {
     flex-direction: column;
-    gap: var(--spacing-sm);
+    gap: var(--spacing-xs);
   }
   
   .verifiedBadge {
@@ -381,10 +381,10 @@
   }
   
   .addReviewSection {
-  max-width: 400px;
+  max-width: 300px;
   margin: 0 auto;
-  padding: var(--spacing-lg);
-    padding: var(--spacing-lg);
+  padding: var(--spacing-sm);
+    padding: var(--spacing-sm);
   }
 }
 
@@ -410,7 +410,7 @@
 .errorMessage {
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   color: var(--white);
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
   border-radius: 12px;
   text-align: center;
   font-weight: 500;
