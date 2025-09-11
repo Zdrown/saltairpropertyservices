@@ -51,7 +51,7 @@
 .reviewCard {
   background: var(--white);
   border-radius: 16px;
-  padding: var(--spacing-xl);
+  padding: var(--spacing-lg);
   box-shadow: var(--shadow-lg);
   border: 1px solid rgba(110, 168, 176, 0.1);
   transition: all 0.3s ease;
@@ -84,7 +84,7 @@
 .reviewerInfo {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
 .avatar {
@@ -181,9 +181,9 @@
 
 /* Add Review Section */
 .addReviewSection {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
-  padding: var(--spacing-xl);
+  padding: var(--spacing-lg);
   background: var(--white);
   border-radius: 20px;
   padding: var(--spacing-4xl);
@@ -215,14 +215,14 @@
 }
 
 .reviewForm {
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xl);
 }
 
 .formRow {
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--spacing-lg);
@@ -242,7 +242,7 @@
 
 .input,
 .textarea {
-  min-height: 80px;
+  min-height: 60px;
   resize: vertical;
   padding: var(--spacing-md);
   border: 2px solid #e5e7eb;
@@ -260,7 +260,7 @@
 }
 
 .textarea {
-  min-height: 80px;
+  min-height: 60px;
   resize: vertical;
   resize: vertical;
   min-height: 120px;
@@ -346,14 +346,14 @@
   }
   
   .formRow {
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
     grid-template-columns: 1fr;
   }
   
   .addReviewSection {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
-  padding: var(--spacing-xl);
+  padding: var(--spacing-lg);
     padding: var(--spacing-2xl);
   }
   
@@ -363,7 +363,7 @@
   
   .reviewHeader {
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
   }
   
   .verifiedBadge {
@@ -381,10 +381,10 @@
   }
   
   .addReviewSection {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
-  padding: var(--spacing-xl);
-    padding: var(--spacing-xl);
+  padding: var(--spacing-lg);
+    padding: var(--spacing-lg);
   }
 }
 

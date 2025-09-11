@@ -233,7 +233,7 @@ export default function Reviews() {
                 onChange={handleChange}
                 className={styles.textarea}
                 placeholder="Tell us about your experience with Salt Air Property Services..."
-                rows={3}
+                rows={2}
                 required
               />
             </div>

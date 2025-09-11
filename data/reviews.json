@@ -1,32 +1,5 @@
 [
   {
-    "id": 1757552244667,
-    "name": "zach drown",
-    "rating": 5,
-    "comment": "wow",
-    "date": "2025-09-11",
-    "verified": true,
-    "pending": false
-  },
-  {
-    "id": 1757551476027,
-    "name": "Zach Drown",
-    "rating": 5,
-    "comment": "Im Blown away by the expertise exhibited by the team !",
-    "date": "2025-09-11",
-    "verified": false,
-    "pending": true
-  },
-  {
-    "id": 1757550575133,
-    "name": "Zach Drown",
-    "rating": 5,
-    "comment": "Im blown away by the expertise exhibited by Salt Air Property Services. ",
-    "date": "2025-09-11",
-    "verified": false,
-    "pending": true
-  },
-  {
     "id": 1,
     "name": "Sarah Mitchell",
     "rating": 5,
@@ -41,7 +14,8 @@
     "rating": 5,
     "comment": "Rapid emergency response when we had storm damage. They were on-site within hours and handled everything professionally. True Outer Cape specialists.",
     "date": "2024-10-08",
-    "verified": true
+    "verified": true,
+    "pending": false
   },
   {
     "id": 3,
@@ -49,7 +23,8 @@
     "rating": 5,
     "comment": "From seasonal transitions to regular maintenance, Salt Air has been our trusted partner for years. Their knowledge of Outer Cape properties is unmatched.",
     "date": "2024-09-22",
-    "verified": true
+    "verified": true,
+    "pending": false
   },
   {
     "id": 4,
@@ -57,6 +32,7 @@
     "rating": 5,
     "comment": "Professional, reliable, and thorough. They understand the unique challenges of Outer Cape properties and deliver exceptional service every time.",
     "date": "2024-08-10",
-    "verified": true
+    "verified": true,
+    "pending": false
   }
 ]
