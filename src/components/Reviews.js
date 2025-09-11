@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FaStar, FaQuoteLeft, FaUser, FaCalendarAlt, FaThumbsUp } from 'react-icons/fa';
+import { FaStar, FaQuoteLeft, FaUser, FaCalendarAlt, FaThumbsUp, FaEnvelope } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 import styles from './Reviews.module.css';
 
 export default function Reviews() {
@@ -13,14 +14,14 @@ export default function Reviews() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  // Default sample reviews
+  // Default sample reviews with 2024-2025 dates
   const defaultReviews = [
     {
       id: 1,
       name: 'Sarah Mitchell',
       rating: 5,
       comment: 'Salt Air Property Services exceeded our expectations! Their attention to detail and professionalism during our home opening was outstanding. Highly recommend for Outer Cape property owners.',
-      date: '2024-01-15',
+      date: '2024-11-15',
       verified: true
     },
     {
@@ -28,7 +29,7 @@ export default function Reviews() {
       name: 'Michael Chen',
       rating: 5,
       comment: 'Rapid emergency response when we had storm damage. They were on-site within hours and handled everything professionally. True Outer Cape specialists.',
-      date: '2024-01-08',
+      date: '2024-10-08',
       verified: true
     },
     {
@@ -36,7 +37,7 @@ export default function Reviews() {
       name: 'Emily Rodriguez',
       rating: 5,
       comment: 'From seasonal transitions to regular maintenance, Salt Air has been our trusted partner for years. Their knowledge of Outer Cape properties is unmatched.',
-      date: '2023-12-22',
+      date: '2024-09-22',
       verified: true
     },
     {
@@ -44,7 +45,7 @@ export default function Reviews() {
       name: 'David Thompson',
       rating: 5,
       comment: 'Professional, reliable, and thorough. They understand the unique challenges of Outer Cape properties and deliver exceptional service every time.',
-      date: '2023-12-10',
+      date: '2024-08-10',
       verified: true
     }
   ];
@@ -68,28 +69,61 @@ export default function Reviews() {
     }
   }, [reviews]);
 
+  const sendReviewNotification = async (reviewData) => {
+    try {
+      const templateParams = {
+        reviewer_name: reviewData.name,
+        review_rating: reviewData.rating,
+        review_comment: reviewData.comment,
+        review_date: reviewData.date,
+        review_id: reviewData.id,
+        to_email: 'saltairpropertyservices@gmail.com',
+        subject: 'New Review Submitted - Salt Air Property Services'
+      };
+
+      await emailjs.send(
+        'service_o96urzt',   // EmailJS service ID
+        'template_review_notification',  // New template for review notifications
+        templateParams,
+        'tXJRf0CcFKcZWYALC'  // EmailJS public key
+      );
+
+      console.log('Review notification email sent successfully');
+    } catch (error) {
+      console.error('Failed to send review notification email:', error);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Simulate API call delay
-    setTimeout(() => {
-      const review = {
-        id: Date.now(),
-        name: newReview.name,
-        rating: parseInt(newReview.rating),
-        comment: newReview.comment,
-        date: new Date().toISOString().split('T')[0],
-        verified: false
-      };
+    // Create review object
+    const review = {
+      id: Date.now(),
+      name: newReview.name,
+      rating: parseInt(newReview.rating),
+      comment: newReview.comment,
+      date: new Date().toISOString().split('T')[0],
+      verified: false,
+      pending: true
+    };
+
+    try {
+      // Send email notification
+      await sendReviewNotification(review);
       
-      // Add new review to the beginning of the array
+      // Add review to pending state (not visible on website yet)
       setReviews(prev => [review, ...prev]);
       setNewReview({ name: '', rating: 5, comment: '' });
       setSubmitStatus('success');
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleChange = (e) => {
@@ -106,6 +140,9 @@ export default function Reviews() {
     ));
   };
 
+  // Filter out pending reviews from display (only show verified ones)
+  const displayReviews = reviews.filter(review => review.verified !== false || review.pending !== true);
+
   return (
     <section className={styles.sectionContainer} id="reviews" aria-labelledby="reviews-heading">
       <div className={styles.container}>
@@ -118,7 +155,7 @@ export default function Reviews() {
 
         {/* Reviews Grid */}
         <div className={styles.reviewsGrid}>
-          {reviews.map((review) => (
+          {displayReviews.map((review) => (
             <div key={review.id} className={styles.reviewCard}>
               <div className={styles.reviewHeader}>
                 <div className={styles.reviewerInfo}>
@@ -146,11 +183,6 @@ export default function Reviews() {
                   <div className={styles.verifiedBadge}>
                     <FaThumbsUp />
                     Verified
-                  </div>
-                )}
-                {!review.verified && (
-                  <div className={styles.pendingBadge}>
-                    Pending
                   </div>
                 )}
               </div>
@@ -226,7 +258,14 @@ export default function Reviews() {
 
             {submitStatus === 'success' && (
               <div className={styles.successMessage}>
-                Thank you for your review! It has been added and will be visible immediately.
+                <FaEnvelope className={styles.emailIcon} />
+                Thank you for your review! We've sent you a confirmation email. Your review will appear on our website once approved.
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className={styles.errorMessage}>
+                Sorry, there was an error submitting your review. Please try again or contact us directly.
               </div>
             )}
           </form>
